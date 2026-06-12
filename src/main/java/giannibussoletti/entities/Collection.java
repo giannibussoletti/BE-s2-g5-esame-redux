@@ -21,4 +21,8 @@ public class Collection {
         }
     }
 
+    public static List<Game> searchByPrice(double price) {
+        return gameCollection.stream().filter(game -> game.getPrice() < price).toList();
+    }
+
 }

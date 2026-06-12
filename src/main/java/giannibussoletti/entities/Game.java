@@ -27,7 +27,7 @@ public abstract class Game {
 
     @Override
     public String toString() {
-        return title + ":" +
+        return "\n" + title + ":" +
                 "\nID: " + id +
                 "\nNome: " + title + '\'' +
                 "\nAnno di rilascio: " + yearRelease +
