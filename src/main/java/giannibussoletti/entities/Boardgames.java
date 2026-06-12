@@ -10,6 +10,11 @@ public class Boardgames extends Game {
         this.totalGameLength = totalGameLength;
     }
 
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+
     @Override
     public String toString() {
         return super.toString() +

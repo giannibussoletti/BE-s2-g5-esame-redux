@@ -25,4 +25,13 @@ public class Collection {
         return gameCollection.stream().filter(game -> game.getPrice() < price).toList();
     }
 
+    public static List<Game> searchByPlayersNumber(int players) {
+        List<Game> filterByPlayers = gameCollection.stream().filter(game -> game instanceof Boardgames).filter(game -> ((Boardgames) game).getNumOfPlayers() >= players).toList();
+        if (!filterByPlayers.isEmpty()) return filterByPlayers;
+        else {
+            System.out.println("Non è stato trovato nessun gioco con questo numero minimo di giocatori");
+            return filterByPlayers;
+        }
+    }
+
 }

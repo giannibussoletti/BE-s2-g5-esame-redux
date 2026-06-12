@@ -14,6 +14,7 @@ public class Videogames extends Game {
         this.genre = genre;
         this.platform = platform;
     }
+    
 
     @Override
     public String toString() {

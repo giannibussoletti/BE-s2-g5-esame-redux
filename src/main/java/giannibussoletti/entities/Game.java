@@ -25,6 +25,7 @@ public abstract class Game {
         return price;
     }
 
+    
     @Override
     public String toString() {
         return "\n" + title + ":" +
