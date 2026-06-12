@@ -12,7 +12,7 @@ public class Application {
     public static void main(String[] args) {
 
 
-        Game game1 = new Videogames("1234567891232153163", "Prova", 2020, 20.99, 30, Genres.ACTION, Platform.PC);
+        Game game1 = new Videogames("1234567891232153163", "Cancellato", 2020, 20.99, 30, Genres.ACTION, Platform.PC);
         Game game2 = new Videogames("1234567891264523266", "Prova", 2020, 40.50, 30, Genres.ACTION, Platform.PC);
         Game game3 = new Videogames("1234567891232176538", "Prova", 2020, 80.99, 30, Genres.ACTION, Platform.PC);
         Game game4 = new Boardgames("32874354354734983", "Prova board", 2020, 20, 2, 90);
@@ -29,5 +29,7 @@ public class Application {
 //        System.out.println(Collection.searchById("3287492734543543652"));
 //        Collection.searchByPrice(80).forEach(System.out::println);
         Collection.searchByPlayersNumber(3).forEach(System.out::println);
+        Collection.deleteByID("1234567891232153163");
+        
     }
 }

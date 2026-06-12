@@ -34,4 +34,12 @@ public class Collection {
         }
     }
 
+    public static void deleteByID(String id) {
+        gameCollection = gameCollection.stream().filter(game -> !game.getId().equals(id)).toList();
+    }
+
+    public static void printCollection() {
+        gameCollection.forEach(System.out::println);
+    }
+
 }
