@@ -39,7 +39,46 @@ public class Collection {
     }
 
     public static void printCollection() {
-        gameCollection.forEach(System.out::println);
+        if (gameCollection.isEmpty()) {
+            System.out.println("""
+                    Non è stato trovato alcun gioco nella lista.
+                    Impossibile stimare il prezzo più alto e quello medio.
+                    """);
+            return;
+        }
+
+        List<Game> printBoardgames = gameCollection.stream()
+                .filter(game -> game instanceof Boardgames)
+                .toList();
+
+        double higherPriceFilter = gameCollection.stream()
+                .mapToDouble(Game::getPrice).max()
+                .orElseThrow(IllegalStateException::new);
+
+        List<Game> higherPrice = gameCollection.stream()
+                .filter(game -> game.getPrice() == higherPriceFilter).toList();
+
+        double averagePrice = gameCollection.stream()
+                .mapToDouble(Game::getPrice).average()
+                .orElseThrow(IllegalStateException::new);
+
+        if (printBoardgames.isEmpty()) {
+            System.out.println(
+                    "La collezione ha un totale di: " + gameCollection.size() +
+                            "\nNon ci sono giochi da tavolo" +
+                            "\nIl gioco più costoso è" + higherPrice.getFirst() +
+                            "\nLa media dei prezzi di tutti i giochi è:" + averagePrice + "€"
+            );
+        } else {
+            System.out.println(
+                    "La collezione ha un totale di: " + gameCollection.size() +
+                            "\n\nIl gioco più costoso è:\n\n" + higherPrice.getFirst() +
+                            "\n\nLa media dei prezzi di tutti i giochi è:" + averagePrice + "€\n"
+            );
+            System.out.println("I Giochi da tavolo presenti sono:");
+            printBoardgames.forEach(System.out::println);
+        }
+
     }
 
 }

@@ -14,13 +14,15 @@ public class Videogames extends Game {
         this.genre = genre;
         this.platform = platform;
     }
-    
+
 
     @Override
     public String toString() {
         return super.toString() +
-                "\nDurata totale" + totalGameLength +
-                "\nGenere" + genre +
-                "\nPiattaforma" + platform;
+                "\nDurata totale: " + totalGameLength +
+                "\nGenere: " + genre.toString().toLowerCase() +
+                "\nPiattaforma: " + platform.toString().toLowerCase() +
+                "\n------------------------";
+        
     }
 }

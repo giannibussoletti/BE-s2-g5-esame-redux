@@ -19,6 +19,7 @@ public class Boardgames extends Game {
     public String toString() {
         return super.toString() +
                 "\nNumero minimo di giocatori: " + numOfPlayers +
-                "\nTempo medio di una partita: " + totalGameLength + "min.";
+                "\nTempo medio di una partita: " + totalGameLength + "min." +
+                "\n------------------------";
     }
 }

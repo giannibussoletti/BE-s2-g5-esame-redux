@@ -25,13 +25,13 @@ public abstract class Game {
         return price;
     }
 
-    
+
     @Override
     public String toString() {
-        return "\n" + title + ":" +
+        return title + ":" +
                 "\nID: " + id +
-                "\nNome: " + title + '\'' +
                 "\nAnno di rilascio: " + yearRelease +
-                "\nPrezzo:" + price;
+                "\nPrezzo: " + price + "€";
+
     }
 }
