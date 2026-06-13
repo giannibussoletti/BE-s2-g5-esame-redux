@@ -36,7 +36,7 @@ public class Collection {
     }
 
 
-    public static boolean idCheck(String id) {
+    public static boolean idAlreadyExist(String id) {
         return gameCollection.stream().anyMatch(game -> game.getId().equals(id));
     }
 
