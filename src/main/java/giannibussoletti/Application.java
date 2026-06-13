@@ -7,10 +7,11 @@ import giannibussoletti.entities.Videogames;
 import giannibussoletti.enums.Genres;
 import giannibussoletti.enums.Platform;
 import giannibussoletti.exceptions.MinPlayerNumberNotFound;
+import giannibussoletti.exceptions.NoGameWithThisID;
 
 public class Application {
 
-    public static void main(String[] args) throws MinPlayerNumberNotFound {
+    public static void main(String[] args) {
 
 
         Game game1 = new Videogames("1234567891232153163", "Batman Arkam City", 2020, 130.99, 30, Genres.ACTION, Platform.PC);
@@ -34,7 +35,12 @@ public class Application {
         } catch (MinPlayerNumberNotFound e) {
             System.out.println(e.getMessage());
         }
-//        Collection.deleteByID("1234567891232153163");
-//        Collection.printCollection();
+
+        try {
+            Collection.searchById("12345678912353163");
+        } catch (NoGameWithThisID e) {
+            System.out.println(e.getMessage());
+        }
+        Collection.printCollection();
     }
 }

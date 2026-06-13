@@ -1,6 +1,7 @@
 package giannibussoletti.entities;
 
 import giannibussoletti.exceptions.MinPlayerNumberNotFound;
+import giannibussoletti.exceptions.NoGameWithThisID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,11 @@ public class Collection {
         gameCollection.add(game);
     }
 
-    public static Game searchById(String id) {
+    public static Game searchById(String id) throws NoGameWithThisID {
         List<Game> findById = gameCollection.stream().filter(game -> game.getId().equals(id)).toList();
-        if (findById.isEmpty()) {
-            System.out.println("Non ci sono giochi con questo ID");
-            return null;
-        } else {
-            return findById.getFirst();
-        }
+        if (!findById.isEmpty()) return findById.getFirst();
+        else throw new NoGameWithThisID(id);
+
     }
 
     public static List<Game> searchByPrice(double price) {
