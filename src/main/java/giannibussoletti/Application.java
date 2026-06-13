@@ -32,20 +32,31 @@ public class Application {
         Collection.addGame(game5);
         Collection.addGame(game6);
 
-        // Aggiunta Videogioco
-        System.out.println("Titolo");
-        scanner.nextLine();
+        // Aggiunta Gioco
+        String gameID;
+        while (true) {
+            String randomIdSeed = Long.toString(random.nextLong());
+            if (Collection.idCheck(randomIdSeed)) {
+                gameID = randomIdSeed;
+                break;
+            }
+        }
+
+        System.out.println("Dimmi il titolo:");
+        String title = scanner.nextLine();
+
         int year = 0;
         while (true) {
-            System.out.println("Anno");
+            System.out.println("In che anno è stato rilasciato?");
             if (scanner.hasNextInt()) {
                 year = scanner.nextInt();
                 if (year >= 1980 && year < 2030) break;
                 else {
-                    scanner.nextLine();
+                    scanner.next();
                     System.out.println("Anno non valido");
                 }
             } else {
+                scanner.next();
                 System.out.println("Valore non valido, inserisci un numero intero");
             }
         }
@@ -56,69 +67,131 @@ public class Application {
                 price = scanner.nextDouble();
                 if (price >= 1 && price < 90) break;
                 else {
-                    scanner.nextLine();
+                    scanner.next();
                     System.out.println("Prezzo non valido");
                 }
             } else {
+                scanner.next();
                 System.out.println("Valore non valido, inserisci un numero");
             }
         }
+        // Aggiunta Videogioco
         int length = 0;
         while (true) {
-            System.out.println("Durata");
+            System.out.println("Quanto dura in ore il gioco?");
             if (scanner.hasNextInt()) {
                 length = scanner.nextInt();
                 if (length >= 1) break;
                 else {
-                    scanner.nextLine();
+                    scanner.next();
                     System.out.println("La durata non può essere minore di 1");
                 }
             } else {
+                scanner.next();
                 System.out.println("Valore non valido, inserisci un numero");
             }
         }
+
         Platform platform;
         while (true) {
-            System.out.println("Piattaforma di rilascio");
+            System.out.println("Su quale piattaforma è stato rilasciato? Usa i numeri indicati");
+            System.out.println("""
+                    1) PC
+                    2) XBOX
+                    3) SWITCH
+                    4) PLAYSTATION
+                    5) MULTIPLE
+                    6) ALTRE PIATTAFORME""");
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
-                switch (choice) {
-                    case 1 -> platform = Platform.PC;
-                    case 2 -> platform = Platform.XBOX;
-                    case 3 -> platform = Platform.SWITCH;
-                    case 4 -> platform = Platform.PLAYSTATION;
-                    case 5 -> platform = Platform.MULTIPLE;
-                    case 6 -> platform = Platform.ALTRE_PIATTAFORME;
-                }
-                else {
+                if (choice <= 6 && choice >= 1) {
+                    switch (choice) {
+                        case 1 -> platform = Platform.PC;
+                        case 2 -> platform = Platform.XBOX;
+                        case 3 -> platform = Platform.SWITCH;
+                        case 4 -> platform = Platform.PLAYSTATION;
+                        case 5 -> platform = Platform.MULTIPLE;
+                        case 6 -> platform = Platform.ALTRE_PIATTAFORME;
+                    }
                     scanner.nextLine();
-                    System.out.println("La durata non può essere minore di 1");
+                    break;
+                } else {
+                    System.out.println("Numero non valido");
+                    scanner.nextLine();
                 }
             } else {
-                System.out.println("Valore non valido, inserisci un numero");
+                System.out.println("Valore non valido");
+                scanner.nextLine();
+
             }
         }
 
+        Genres genre;
+        while (true) {
+            System.out.println("Quale è il suo genere principale? Usa i numeri indicati");
+            System.out.println(
+                    """
+                            1) ACTION,
+                            2) HORROR,
+                            3) COZY,
+                            4) PUZZLE,
+                            5) RPG,
+                            6) JRPG,
+                            7) STEALTH,
+                            8) FIRST_PERSON_SHOOTER,
+                            9) MMO"""
+            );
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                if (choice <= 9 && choice >= 1) {
+                    switch (choice) {
+                        case 1 -> genre = Genres.ACTION;
+                        case 2 -> genre = Genres.HORROR;
+                        case 3 -> genre = Genres.COZY;
+                        case 4 -> genre = Genres.PUZZLE;
+                        case 5 -> genre = Genres.RPG;
+                        case 6 -> genre = Genres.JRPG;
+                        case 7 -> genre = Genres.STEALTH;
+                        case 8 -> genre = Genres.FIRST_PERSON_SHOOTER;
+                        case 9 -> genre = Genres.MMO;
+                    }
+                    break;
 
-        System.out.println("Genere");
-        scanner.nextInt();
-        System.out.println("Piattaforma di rilascio");
-        scanner.nextInt();
-        break;
+                } else {
+                    System.out.println("Numero non valido");
+                    scanner.next();
+                }
+            } else {
+                System.out.println("Valore non valido");
+                scanner.next();
+
+            }
+
+
+        }
 
         // Aggiunta Boardgame
+        int numOfPlayers = 0;
         while (true) {
-            System.out.println("Titolo");
-            scanner.nextLine();
-            System.out.println("Anno");
-            scanner.nextInt();
-            System.out.println("Costo");
-            scanner.nextDouble();
-            System.out.println("Lunghezza in Minuti");
-            scanner.nextInt();
-            System.out.println("Numero minimo di giocatori");
-            scanner.nextInt();
-            break;
+            System.out.println("Quale è il numero minimo di giocatori? (espressi in numeri)");
+            if (scanner.hasNextInt()) {
+                numOfPlayers = scanner.nextInt();
+                if (numOfPlayers >= 2 && numOfPlayers <= 10) break;
+                else System.out.println("min. 2 giocatori\nmax. 10 giocatori");
+            } else {
+                System.out.println("Valore non valido");
+            }
+        }
+        int totalGameLength = 0;
+        while (true) {
+            System.out.println("Quanti minuti dura una partita?");
+            if (scanner.hasNextInt()) {
+                totalGameLength = scanner.nextInt();
+                if (totalGameLength > 0) break;
+                else System.out.println("il gioco non può durare 0 minuti");
+            } else {
+                System.out.println("Valore non valido");
+            }
         }
 
 

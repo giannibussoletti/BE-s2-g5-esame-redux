@@ -35,6 +35,11 @@ public class Collection {
         gameCollection = gameCollection.stream().filter(game -> !game.getId().equals(id)).toList();
     }
 
+
+    public static boolean idCheck(String id) {
+        return gameCollection.stream().anyMatch(game -> game.getId().equals(id));
+    }
+
     public static void printCollection() {
         if (gameCollection.isEmpty()) {
             System.out.println("""
