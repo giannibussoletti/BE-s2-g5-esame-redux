@@ -14,7 +14,6 @@ public class Boardgames extends Game {
         return numOfPlayers;
     }
 
-
     @Override
     public String toString() {
         return super.toString() +

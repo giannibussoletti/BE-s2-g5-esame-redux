@@ -1,5 +1,7 @@
 package giannibussoletti.entities;
 
+import giannibussoletti.exceptions.MinPlayerNumberNotFound;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,8 @@ public class Collection {
 
     public static Game searchById(String id) {
         List<Game> findById = gameCollection.stream().filter(game -> game.getId().equals(id)).toList();
-        if (findById.size() != 1) {
-            System.out.println("c'è più di un gioco con questo id");
+        if (findById.isEmpty()) {
+            System.out.println("Non ci sono giochi con questo ID");
             return null;
         } else {
             return findById.getFirst();
@@ -22,16 +24,13 @@ public class Collection {
     }
 
     public static List<Game> searchByPrice(double price) {
-        return gameCollection.stream().filter(game -> game.getPrice() < price).toList();
+        return gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
     }
 
-    public static List<Game> searchByPlayersNumber(int players) {
+    public static List<Game> searchByPlayersNumber(int players) throws MinPlayerNumberNotFound {
         List<Game> filterByPlayers = gameCollection.stream().filter(game -> game instanceof Boardgames).filter(game -> ((Boardgames) game).getNumOfPlayers() >= players).toList();
         if (!filterByPlayers.isEmpty()) return filterByPlayers;
-        else {
-            System.out.println("Non è stato trovato nessun gioco con questo numero minimo di giocatori");
-            return filterByPlayers;
-        }
+        else throw new MinPlayerNumberNotFound();
     }
 
     public static void deleteByID(String id) {

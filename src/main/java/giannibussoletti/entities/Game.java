@@ -12,11 +12,7 @@ public abstract class Game {
         this.yearRelease = yearRelease;
         this.price = price;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
+    
     public String getId() {
         return id;
     }
