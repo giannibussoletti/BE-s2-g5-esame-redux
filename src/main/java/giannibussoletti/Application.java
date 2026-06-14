@@ -64,14 +64,5 @@ public class Application {
                 default -> System.out.println("Scelta non valida");
             }
         }
-        /*
-____________________________________________________________________
-        System.out.println(Collection.searchById("387492734543543652"));
-        Collection.searchByPrice(80).forEach(System.out::println);
-
-
-
-        Collection.printCollection();
-*/
     }
 }
