@@ -274,6 +274,7 @@ public final class Utilities {
                                 3) Prezzo
                                 4) Durata totale del gioco
                                 5) Genere
+                                6) Piattaforma
                             """);
                 } else {
                     System.out.println("""
@@ -398,6 +399,42 @@ public final class Utilities {
                                     }
 
 
+                                }
+                            }
+                            case 6 -> {
+                                while (true) {
+                                    System.out.println("Su quale piattaforma è stato rilasciato? Usa i numeri indicati");
+                                    System.out.println("""
+                                            1) PC
+                                            2) XBOX
+                                            3) SWITCH
+                                            4) PLAYSTATION
+                                            5) MULTIPLE
+                                            6) ALTRE PIATTAFORME""");
+                                    if (scanner.hasNextInt()) {
+                                        int platformChoice = scanner.nextInt();
+                                        if (platformChoice <= 6 && platformChoice >= 1) {
+                                            switch (platformChoice) {
+                                                case 1 -> ((Videogames) gameToUpdate).setPlatform(Platform.PC);
+                                                case 2 -> ((Videogames) gameToUpdate).setPlatform(Platform.XBOX);
+                                                case 3 -> ((Videogames) gameToUpdate).setPlatform(Platform.SWITCH);
+                                                case 4 -> ((Videogames) gameToUpdate).setPlatform(Platform.PLAYSTATION);
+                                                case 5 -> ((Videogames) gameToUpdate).setPlatform(Platform.MULTIPLE);
+                                                case 6 ->
+                                                        ((Videogames) gameToUpdate).setPlatform(Platform.ALTRE_PIATTAFORME);
+                                                default -> throw new IllegalStateException("Valore non valido");
+                                            }
+                                            scanner.nextLine();
+                                            break;
+                                        } else {
+                                            System.out.println("Numero non valido");
+                                            scanner.nextLine();
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido");
+                                        scanner.nextLine();
+
+                                    }
                                 }
                             }
                         }
