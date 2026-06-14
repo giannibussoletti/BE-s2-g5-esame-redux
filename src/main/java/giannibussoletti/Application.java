@@ -58,6 +58,7 @@ public class Application {
                 case 3 -> Utilities.menuSearchByPrice();
                 case 4 -> Utilities.menuNumOfPlayerSearch();
                 case 5 -> Utilities.menuDeleteByID();
+                case 6 -> Utilities.menuUpdateGames();
                 case 7 -> Collection.printCollection();
                 case 0 -> System.exit(0);
                 default -> System.out.println("Scelta non valida");

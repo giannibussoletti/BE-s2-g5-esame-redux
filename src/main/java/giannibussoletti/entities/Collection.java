@@ -58,9 +58,6 @@ public class Collection {
             return;
         }
 
-        List<Game> printBoardgames = gameCollection.stream()
-                .filter(game -> game instanceof Boardgames)
-                .toList();
 
         double higherPriceFilter = gameCollection.stream()
                 .mapToDouble(Game::getPrice).max()
@@ -73,13 +70,8 @@ public class Collection {
                 .mapToDouble(Game::getPrice).average()
                 .orElseThrow(IllegalStateException::new);
 
-        if (printBoardgames.isEmpty()) {
-            System.out.println(
-                    "La collezione ha un totale di: " + gameCollection.size() +
-                            "\nNon ci sono giochi da tavolo" +
-                            "\nIl gioco più costoso è" + higherPrice.getFirst() +
-                            "\nLa media dei prezzi di tutti i giochi è:" + averagePrice + "€"
-            );
+        if (gameCollection.isEmpty()) {
+            System.out.println("La collezione non contiene alcun gioco");
         } else {
             System.out.println(
                     "La collezione ha un totale di: " + gameCollection.size() +
@@ -87,27 +79,16 @@ public class Collection {
                             "\n\nLa media dei prezzi di tutti i giochi è:" + averagePrice + "€\n"
             );
             System.out.println("I Giochi da tavolo presenti sono:");
-            printBoardgames.forEach(System.out::println);
+            gameCollection.forEach(System.out::println);
         }
 
     }
 
-    public static void UpdateGame(String id) {
+    public static Game UpdateGame(String id) throws NoGameWithThisID {
         List<Game> gameToUpdate = gameCollection.stream().filter(game -> game.getId().equals(id)).toList();
         if (!gameToUpdate.isEmpty()) {
-            if (gameToUpdate instanceof Videogames)
-                System.out.println("""
-                        String title, int yearRelease, double price, int totalGameLength, Genres genre, Platform platform
-                        Cosa vuoi aggiornare del Videogioco?
-                        1) Titolo
-                        2) Anno di uscita
-                        3) Prezzo
-                        4) Durata totale del gioco
-                        5) Genere
-                        6) Piattaforma di rilascio;
-                        """);
-            gameToUpdate.getFirst();
-        }
+            return gameToUpdate.getFirst();
+        } else throw new NoGameWithThisID();
     }
 }
 

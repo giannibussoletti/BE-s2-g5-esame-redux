@@ -66,7 +66,7 @@ public final class Utilities {
             System.out.println("Quanto costa?");
             if (scanner.hasNextDouble()) {
                 price = scanner.nextDouble();
-                if (price >= 1 && price < 90) break;
+                if (price >= 1 && price < 100) break;
                 else {
                     System.out.println("Prezzo non valido");
                     scanner.nextLine();
@@ -259,8 +259,152 @@ public final class Utilities {
     }
 
     public static void menuUpdateGames() {
+        System.out.println("Inserisci l'id del gioco da aggiornare");
         String idGameToUpdate = scanner.nextLine();
+        try {
+            Game gameToUpdate = Collection.UpdateGame(idGameToUpdate);
+            if (gameToUpdate instanceof Videogames) {
+                int choice;
+                String repeatChoice = "y";
+                do {
+                    System.out.println("""
+                            Cosa vuoi aggiornare del Videogioco?
+                                1) Titolo
+                                2) Anno di uscita
+                                3) Prezzo
+                                4) Durata totale del gioco
+                                5) Genere
+                            """);
+                    if (scanner.hasNextInt()) {
+                        choice = scanner.nextInt();
+                        scanner.nextLine();
+                        switch (choice) {
+                            case 1 -> {
+                                System.out.println("Scrivi il nuovo titolo");
+                                gameToUpdate.setTitle(scanner.nextLine());
+                                System.out.println("Titolo Aggiornato con successo!");
 
+                            }
+                            case 2 -> {
+                                while (true) {
+                                    System.out.println("Scrivi il nuovo anno");
+                                    if (scanner.hasNextInt()) {
+                                        int year = scanner.nextInt();
+                                        scanner.nextLine();
+                                        if (year >= 1980 && year <= 2030) {
+                                            System.out.println("Anno Aggiornato con successo!");
+                                            gameToUpdate.setYearRelease(year);
+                                            break;
+                                        } else {
+                                            System.out.println("Anno non valido");
+                                            scanner.nextLine();
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido");
+                                        scanner.nextLine();
+                                    }
+                                }
+                            }
+                            case 3 -> {
+                                while (true) {
+                                    System.out.println("Quanto costa?");
+                                    if (scanner.hasNextDouble()) {
+                                        double price = scanner.nextDouble();
+                                        scanner.nextLine();
+                                        if (price >= 1) {
+                                            gameToUpdate.setPrice(price);
+                                            break;
+                                        } else {
+                                            System.out.println("Prezzo non valido");
+                                            scanner.nextLine();
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido, inserisci un numero");
+                                        scanner.nextLine();
+                                    }
+                                }
+                            }
+                            case 4 -> {
+                                while (true) {
+                                    System.out.println("Quanto è la nuova durata?");
+                                    if (scanner.hasNextInt()) {
+                                        int videogameLength = scanner.nextInt();
+                                        scanner.nextLine();
+                                        if (videogameLength >= 1) {
+                                            ((Videogames) gameToUpdate).setTotalGameLength(videogameLength);
+                                            break;
+                                        } else {
+                                            System.out.println("La durata non può essere minore di 1");
+                                            scanner.nextLine();
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido, inserisci un numero");
+                                        scanner.nextLine();
+                                    }
+                                }
+                            }
+                            case 5 -> {
+                                while (true) {
+                                    System.out.println("Quale è il nuovo genere principale?");
+                                    System.out.println(
+                                            """
+                                                    1) ACTION,
+                                                    2) HORROR,
+                                                    3) COZY,
+                                                    4) PUZZLE,
+                                                    5) RPG,
+                                                    6) JRPG,
+                                                    7) STEALTH,
+                                                    8) FIRST_PERSON_SHOOTER,
+                                                    9) MMO"""
+                                    );
+                                    if (scanner.hasNextInt()) {
+                                        int choiceGenre = scanner.nextInt();
+                                        scanner.nextLine();
+                                        if (choiceGenre <= 9 && choiceGenre >= 1) {
+                                            switch (choice) {
+                                                case 1 -> ((Videogames) gameToUpdate).setGenre(Genres.ACTION);
+                                                case 2 -> ((Videogames) gameToUpdate).setGenre(Genres.HORROR);
+                                                case 3 -> ((Videogames) gameToUpdate).setGenre(Genres.COZY);
+                                                case 4 -> ((Videogames) gameToUpdate).setGenre(Genres.PUZZLE);
+                                                case 5 -> ((Videogames) gameToUpdate).setGenre(Genres.RPG);
+                                                case 6 -> ((Videogames) gameToUpdate).setGenre(Genres.JRPG);
+                                                case 7 -> ((Videogames) gameToUpdate).setGenre(Genres.STEALTH);
+                                                case 8 ->
+                                                        ((Videogames) gameToUpdate).setGenre(Genres.FIRST_PERSON_SHOOTER);
+                                                case 9 -> ((Videogames) gameToUpdate).setGenre(Genres.MMO);
+                                                default -> throw new IllegalStateException("Valore non valido");
+                                            }
+                                            break;
+                                        } else {
+                                            System.out.println("Numero non valido");
+                                            scanner.nextLine();
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido");
+                                        scanner.nextLine();
+
+                                    }
+
+
+                                }
+                            }
+                            default -> System.out.println("Valore non valido");
+
+                        }
+                        System.out.println("Vuoi aggiornare qualcos'altro? y o n");
+                        if (scanner.nextLine().equalsIgnoreCase("n")) {
+                            repeatChoice = "n";
+                        }
+                    } else {
+                        System.out.println("Valore non valido");
+                        scanner.nextLine();
+                    }
+                } while (repeatChoice.equalsIgnoreCase("y"));
+            }
+        } catch (NoGameWithThisID e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void menuSearchByPrice() {
