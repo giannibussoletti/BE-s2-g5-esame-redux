@@ -1,6 +1,7 @@
 package giannibussoletti.entities;
 
 import giannibussoletti.exceptions.MinPlayerNumberNotFound;
+import giannibussoletti.exceptions.NoGameFoundWithThisPrice;
 import giannibussoletti.exceptions.NoGameWithThisID;
 
 import java.util.ArrayList;
@@ -14,15 +15,20 @@ public class Collection {
         gameCollection.add(game);
     }
 
-    public static Game searchById(String id) throws NoGameWithThisID {
+    public static void CollectionSearchById(String id) throws NoGameWithThisID {
         List<Game> findById = gameCollection.stream().filter(game -> game.getId().equals(id)).toList();
-        if (!findById.isEmpty()) return findById.getFirst();
+        if (!findById.isEmpty()) System.out.println(findById.getFirst());
         else throw new NoGameWithThisID(id);
 
     }
 
     public static List<Game> searchByPrice(double price) {
-        return gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
+        try {
+            gameCollection = gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
+        } catch (NoGameFoundWithThisPrice e) {
+            System.out.println(e.getMessage());
+        }
+        return gameCollection;
     }
 
     public static List<Game> searchByPlayersNumber(int players) throws MinPlayerNumberNotFound {
@@ -31,8 +37,11 @@ public class Collection {
         else throw new MinPlayerNumberNotFound();
     }
 
-    public static void deleteByID(String id) {
-        gameCollection = gameCollection.stream().filter(game -> !game.getId().equals(id)).toList();
+    public static void deleteByID(String id) throws NoGameWithThisID {
+        if (gameCollection.stream().anyMatch(game -> game.getId().equals(id))) {
+            gameCollection = gameCollection.stream().filter(game -> !game.getId().equals(id)).toList();
+            System.out.println("Gioco cancellato con successo");
+        } else throw new NoGameWithThisID();
     }
 
 
