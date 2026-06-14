@@ -258,6 +258,11 @@ public final class Utilities {
         }
     }
 
+    public static void menuUpdateGames() {
+        String idGameToUpdate = scanner.nextLine();
+
+    }
+
     public static void menuSearchByPrice() {
         while (true) {
             System.out.println("Quale è il prezzo massimo che vuoi cercare?");

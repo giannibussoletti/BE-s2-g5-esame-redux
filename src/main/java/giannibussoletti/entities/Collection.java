@@ -21,6 +21,7 @@ public class Collection {
 
     }
 
+
     public static List<Game> searchByPrice(double price) {
         if (!gameCollection.isEmpty()) {
             return gameCollection = gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
@@ -91,4 +92,22 @@ public class Collection {
 
     }
 
+    public static void UpdateGame(String id) {
+        List<Game> gameToUpdate = gameCollection.stream().filter(game -> game.getId().equals(id)).toList();
+        if (!gameToUpdate.isEmpty()) {
+            if (gameToUpdate instanceof Videogames)
+                System.out.println("""
+                        String title, int yearRelease, double price, int totalGameLength, Genres genre, Platform platform
+                        Cosa vuoi aggiornare del Videogioco?
+                        1) Titolo
+                        2) Anno di uscita
+                        3) Prezzo
+                        4) Durata totale del gioco
+                        5) Genere
+                        6) Piattaforma di rilascio;
+                        """);
+            gameToUpdate.getFirst();
+        }
+    }
 }
+
