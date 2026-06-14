@@ -1,7 +1,6 @@
 package giannibussoletti.entities;
 
 import giannibussoletti.exceptions.MinPlayerNumberNotFound;
-import giannibussoletti.exceptions.NoGameFoundWithThisPrice;
 import giannibussoletti.exceptions.NoGameWithThisID;
 
 import java.util.ArrayList;
@@ -23,12 +22,12 @@ public class Collection {
     }
 
     public static List<Game> searchByPrice(double price) {
-        try {
-            gameCollection = gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
-        } catch (NoGameFoundWithThisPrice e) {
-            System.out.println(e.getMessage());
+        if (!gameCollection.isEmpty()) {
+            return gameCollection = gameCollection.stream().filter(game -> game.getPrice() <= price).toList();
+        } else {
+            System.out.println("Non ci sono giochi nella lista");
+            return gameCollection;
         }
-        return gameCollection;
     }
 
     public static List<Game> searchByPlayersNumber(int players) throws MinPlayerNumberNotFound {

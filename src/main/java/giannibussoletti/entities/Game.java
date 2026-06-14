@@ -21,6 +21,21 @@ public abstract class Game {
         return price;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setYearRelease(int yearRelease) {
+        this.yearRelease = yearRelease;
+    }
 
     @Override
     public String toString() {

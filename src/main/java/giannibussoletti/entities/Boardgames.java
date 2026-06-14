@@ -14,6 +14,14 @@ public class Boardgames extends Game {
         return numOfPlayers;
     }
 
+    public void setNumOfPlayers(int numOfPlayers) {
+        this.numOfPlayers = numOfPlayers;
+    }
+
+    public void setTotalGameLength(int totalGameLength) {
+        this.totalGameLength = totalGameLength;
+    }
+
     @Override
     public String toString() {
         return super.toString() +

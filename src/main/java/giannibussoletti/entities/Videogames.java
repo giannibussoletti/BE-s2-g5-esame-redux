@@ -15,6 +15,17 @@ public class Videogames extends Game {
         this.platform = platform;
     }
 
+    public void setGenre(Genres genre) {
+        this.genre = genre;
+    }
+
+    public void setTotalGameLength(int totalGameLength) {
+        this.totalGameLength = totalGameLength;
+    }
+
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
 
     @Override
     public String toString() {
@@ -23,6 +34,6 @@ public class Videogames extends Game {
                 "\nGenere: " + genre.toString().toLowerCase() +
                 "\nPiattaforma: " + platform.toString().toLowerCase() +
                 "\n------------------------";
-        
+
     }
 }

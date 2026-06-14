@@ -55,7 +55,7 @@ public class Application {
             switch (mainMenuChoice) {
                 case 1 -> Utilities.menuCreateGame();
                 case 2 -> Utilities.menuSearchByID();
-                case 3 -> System.out.println("sas");
+                case 3 -> Utilities.menuSearchByPrice();
                 case 4 -> Utilities.menuNumOfPlayerSearch();
                 case 5 -> Utilities.menuDeleteByID();
                 case 7 -> Collection.printCollection();

@@ -211,6 +211,7 @@ public final class Utilities {
                 Collection.addGame(new Boardgames(gameID, title, year, price, boardNumOfPlayers, boardTotalGameLength));
             }
         }
+        scanner.nextLine();
     }
 
     public static void menuSearchByID() {
@@ -224,17 +225,22 @@ public final class Utilities {
     }
 
     public static void menuNumOfPlayerSearch() {
-        System.out.println("dimmi il numero minimo di giocatori");
         int numOfPlayers;
         while (true) {
+            System.out.println("Dimmi il numero minimo di giocatori (min 2 - max 10)");
             if (scanner.hasNextInt()) {
                 numOfPlayers = scanner.nextInt();
-                try {
-                    Collection.searchByPlayersNumber(numOfPlayers).forEach(System.out::println);
-                } catch (MinPlayerNumberNotFound e) {
-                    System.out.println(e.getMessage());
+                if (numOfPlayers >= 2 && numOfPlayers <= 10) {
+                    try {
+                        Collection.searchByPlayersNumber(numOfPlayers).forEach(System.out::println);
+                    } catch (MinPlayerNumberNotFound e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                } else {
+                    System.out.println("Numero non valido");
+                    scanner.nextLine();
                 }
-                break;
             } else {
                 System.out.println("Valore non valido");
                 scanner.nextLine();
@@ -249,6 +255,26 @@ public final class Utilities {
             Collection.deleteByID(idToDelete);
         } catch (NoGameWithThisID e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void menuSearchByPrice() {
+        while (true) {
+            System.out.println("Quale è il prezzo massimo che vuoi cercare?");
+            if (scanner.hasNextInt()) {
+                int price = scanner.nextInt();
+                if (price >= 1) {
+                    System.out.println("I giochi con prezzo massimo " + price + "€");
+                    Collection.searchByPrice(price).forEach(System.out::println);
+                    break;
+                } else {
+                    System.out.println("Il valore deve essere di almeno 1");
+                    scanner.nextLine();
+                }
+            } else {
+                System.out.println("Valore non valido");
+                scanner.nextLine();
+            }
         }
     }
 
