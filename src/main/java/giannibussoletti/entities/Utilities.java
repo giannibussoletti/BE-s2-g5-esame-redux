@@ -263,10 +263,10 @@ public final class Utilities {
         String idGameToUpdate = scanner.nextLine();
         try {
             Game gameToUpdate = Collection.UpdateGame(idGameToUpdate);
-            if (gameToUpdate instanceof Videogames) {
-                int choice;
-                String repeatChoice = "y";
-                do {
+            int choice;
+            String repeatChoice = "y";
+            do {
+                if (gameToUpdate instanceof Videogames) {
                     System.out.println("""
                             Cosa vuoi aggiornare del Videogioco?
                                 1) Titolo
@@ -275,61 +275,72 @@ public final class Utilities {
                                 4) Durata totale del gioco
                                 5) Genere
                             """);
-                    if (scanner.hasNextInt()) {
-                        choice = scanner.nextInt();
-                        scanner.nextLine();
-                        switch (choice) {
-                            case 1 -> {
-                                System.out.println("Scrivi il nuovo titolo");
-                                gameToUpdate.setTitle(scanner.nextLine());
-                                System.out.println("Titolo Aggiornato con successo!");
+                } else {
+                    System.out.println("""
+                            Cosa vuoi aggiornare del Videogioco?
+                                1) Titolo
+                                2) Anno di uscita
+                                3) Prezzo
+                                4) Durata totale del gioco
+                                5) Numero di giocatori
+                            """);
+                }
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (choice) {
+                        case 1 -> {
+                            System.out.println("Scrivi il nuovo titolo");
+                            gameToUpdate.setTitle(scanner.nextLine());
+                            System.out.println("Titolo Aggiornato con successo!");
 
-                            }
-                            case 2 -> {
-                                while (true) {
-                                    System.out.println("Scrivi il nuovo anno");
-                                    if (scanner.hasNextInt()) {
-                                        int year = scanner.nextInt();
-                                        scanner.nextLine();
-                                        if (year >= 1980 && year <= 2030) {
-                                            System.out.println("Anno Aggiornato con successo!");
-                                            gameToUpdate.setYearRelease(year);
-                                            break;
-                                        } else {
-                                            System.out.println("Anno non valido");
-                                            scanner.nextLine();
-                                        }
+                        }
+                        case 2 -> {
+                            while (true) {
+                                System.out.println("Scrivi il nuovo anno");
+                                if (scanner.hasNextInt()) {
+                                    int year = scanner.nextInt();
+                                    scanner.nextLine();
+                                    if (year >= 1980 && year <= 2030) {
+                                        System.out.println("Anno Aggiornato con successo!");
+                                        gameToUpdate.setYearRelease(year);
+                                        break;
                                     } else {
-                                        System.out.println("Valore non valido");
-                                        scanner.nextLine();
+                                        System.out.println("Anno non valido");
                                     }
+                                } else {
+                                    System.out.println("Valore non valido");
+                                    scanner.nextLine();
                                 }
                             }
-                            case 3 -> {
-                                while (true) {
-                                    System.out.println("Quanto costa?");
-                                    if (scanner.hasNextDouble()) {
-                                        double price = scanner.nextDouble();
-                                        scanner.nextLine();
-                                        if (price >= 1) {
-                                            gameToUpdate.setPrice(price);
-                                            break;
-                                        } else {
-                                            System.out.println("Prezzo non valido");
-                                            scanner.nextLine();
-                                        }
+                        }
+                        case 3 -> {
+                            while (true) {
+                                System.out.println("Quanto costa?");
+                                if (scanner.hasNextDouble()) {
+                                    double price = scanner.nextDouble();
+                                    scanner.nextLine();
+                                    if (price >= 1) {
+                                        gameToUpdate.setPrice(price);
+                                        break;
                                     } else {
-                                        System.out.println("Valore non valido, inserisci un numero");
+                                        System.out.println("Prezzo non valido");
                                         scanner.nextLine();
                                     }
+                                } else {
+                                    System.out.println("Valore non valido, inserisci un numero");
+                                    scanner.nextLine();
                                 }
                             }
+                        }
+                    }
+                    if (gameToUpdate instanceof Videogames) {
+                        switch (choice) {
                             case 4 -> {
                                 while (true) {
                                     System.out.println("Quanto è la nuova durata?");
                                     if (scanner.hasNextInt()) {
-                                        int videogameLength = scanner.nextInt();
-                                        scanner.nextLine();
+                                        int videogameLength = Integer.parseInt(scanner.nextLine());
                                         if (videogameLength >= 1) {
                                             ((Videogames) gameToUpdate).setTotalGameLength(videogameLength);
                                             break;
@@ -362,7 +373,7 @@ public final class Utilities {
                                         int choiceGenre = scanner.nextInt();
                                         scanner.nextLine();
                                         if (choiceGenre <= 9 && choiceGenre >= 1) {
-                                            switch (choice) {
+                                            switch (choiceGenre) {
                                                 case 1 -> ((Videogames) gameToUpdate).setGenre(Genres.ACTION);
                                                 case 2 -> ((Videogames) gameToUpdate).setGenre(Genres.HORROR);
                                                 case 3 -> ((Videogames) gameToUpdate).setGenre(Genres.COZY);
@@ -389,19 +400,58 @@ public final class Utilities {
 
                                 }
                             }
-                            default -> System.out.println("Valore non valido");
-
-                        }
-                        System.out.println("Vuoi aggiornare qualcos'altro? y o n");
-                        if (scanner.nextLine().equalsIgnoreCase("n")) {
-                            repeatChoice = "n";
                         }
                     } else {
-                        System.out.println("Valore non valido");
-                        scanner.nextLine();
+                        switch (choice) {
+                            case 4 -> {
+                                while (true) {
+                                    System.out.println("Quanto è la nuova durata?");
+                                    if (scanner.hasNextInt()) {
+                                        int boardgameLength = scanner.nextInt();
+                                        scanner.nextLine();
+                                        if (boardgameLength >= 1) {
+                                            ((Boardgames) gameToUpdate).setTotalGameLength(boardgameLength);
+                                            break;
+                                        } else {
+                                            System.out.println("La durata non può essere minore di 1");
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido, inserisci un numero");
+                                        scanner.nextLine();
+                                    }
+                                }
+                            }
+                            case 5 -> {
+                                while (true) {
+                                    System.out.println("Quale è il numero minimo di giocatori? (espressi in numeri)");
+                                    if (scanner.hasNextInt()) {
+                                        int boardNumOfPlayers = scanner.nextInt();
+                                        scanner.nextLine();
+                                        if (boardNumOfPlayers >= 2 && boardNumOfPlayers <= 10) {
+                                            ((Boardgames) gameToUpdate).setNumOfPlayers(boardNumOfPlayers);
+                                            break;
+                                        } else {
+                                            System.out.println("min. 2 giocatori\nmax. 10 giocatori");
+                                        }
+                                    } else {
+                                        System.out.println("Valore non valido");
+                                        scanner.nextLine();
+                                    }
+                                }
+                            }
+                        }
                     }
-                } while (repeatChoice.equalsIgnoreCase("y"));
-            }
+
+                    System.out.println("Vuoi aggiornare qualcos'altro? y o n");
+                    if (scanner.nextLine().equalsIgnoreCase("n")) {
+                        repeatChoice = "n";
+                    }
+                } else {
+                    System.out.println("Valore non valido");
+                    scanner.nextLine();
+                }
+            } while (repeatChoice.equalsIgnoreCase("y"));
+
         } catch (NoGameWithThisID e) {
             System.out.println(e.getMessage());
         }
